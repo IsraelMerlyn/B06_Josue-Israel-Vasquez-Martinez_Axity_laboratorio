@@ -25,7 +25,7 @@ public class Technician extends Worker {
         }
 
         System.out
-                .println("🔧 El Técnico [" + getName() + "] detectó la avería y busca transporte para ir al sector...");
+                .println(" El Técnico [" + getName() + "] detectó la avería y busca transporte para ir al sector...");
 
         // Busca el primer transporte en estado AVAILABLE usando Streams de Java
         Optional<Vehicle> availableVehicle = vehicles.stream()
