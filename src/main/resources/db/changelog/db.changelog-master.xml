@@ -3,29 +3,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <!-- Por ahora vacío. Aquí conectaremos las tablas en los siguientes pasos -->
+    <!-- Inclusión ordenada de las migraciones estructurales del parque -->
+    <include file="db/changelog/001-create-revenues.xml"/>
+    <include file="db/changelog/002-create-expenses.xml"/>
+    <include file="db/changelog/003-create-events.xml"/>
 
 </databaseChangeLog>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
