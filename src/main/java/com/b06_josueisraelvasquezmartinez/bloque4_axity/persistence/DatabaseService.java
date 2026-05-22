@@ -4,8 +4,11 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class DatabaseService {
@@ -36,7 +39,7 @@ public class DatabaseService {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al persistir ingreso en DB: " + e.getMessage());
+            System.err.println(" Error al persistir ingreso en DB: " + e.getMessage());
         }
     }
 
@@ -57,7 +60,7 @@ public class DatabaseService {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al persistir gasto en DB: " + e.getMessage());
+            System.err.println(" Error al persistir gasto en DB: " + e.getMessage());
         }
     }
 
@@ -79,7 +82,59 @@ public class DatabaseService {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al persistir evento aleatorio en DB: " + e.getMessage());
+            System.err.println(" Error al persistir evento aleatorio en DB: " + e.getMessage());
         }
+    }
+
+    /**
+     * Extrae el histórico completo de ingresos económicos desde la DB
+     */
+    public List<RevenueRecord> getAllRevenues() {
+        List<RevenueRecord> list = new ArrayList<>();
+        String sql = "SELECT * FROM revenues ORDER BY timestamp DESC";
+
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(new RevenueRecord(
+                        rs.getLong("id"),
+                        rs.getString("type"),
+                        rs.getDouble("amount"),
+                        rs.getInt("tourist_id"),
+                        rs.getString("zone"),
+                        rs.getTimestamp("timestamp").toLocalDateTime()));
+            }
+        } catch (SQLException e) {
+            System.err.println(" Error al leer ingresos de DB: " + e.getMessage());
+        }
+        return list;
+    }
+
+    /**
+     * Extrae el registro de contingencias y alertas históricas
+     */
+    public List<EventRecord> getAllEvents() {
+        List<EventRecord> list = new ArrayList<>();
+        String sql = "SELECT * FROM events ORDER BY step ASC";
+
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(new EventRecord(
+                        rs.getLong("id"),
+                        rs.getLong("step"),
+                        rs.getString("event_name"),
+                        rs.getString("description"),
+                        rs.getString("affected_entities"),
+                        rs.getTimestamp("timestamp").toLocalDateTime()));
+            }
+        } catch (SQLException e) {
+            System.err.println(" Error al leer eventos de DB: " + e.getMessage());
+        }
+        return list;
     }
 }
