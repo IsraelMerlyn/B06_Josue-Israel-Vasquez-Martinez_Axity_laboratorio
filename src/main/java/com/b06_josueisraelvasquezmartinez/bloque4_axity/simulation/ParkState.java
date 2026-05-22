@@ -10,13 +10,13 @@ import com.b06_josueisraelvasquezmartinez.bloque4_axity.model.TouristStatus;
 import com.b06_josueisraelvasquezmartinez.bloque4_axity.model.Vehicle;
 import com.b06_josueisraelvasquezmartinez.bloque4_axity.model.VehicleStatus;
 import com.b06_josueisraelvasquezmartinez.bloque4_axity.model.Worker;
+import com.b06_josueisraelvasquezmartinez.bloque4_axity.zone.PowerPlant;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Getter
 public class ParkState {
     private int currentStep;
     private double totalRevenue;
@@ -35,6 +35,10 @@ public class ParkState {
     private boolean dealsHourActive;
     @Setter
     private double currentDiscount;
+
+    @Getter
+    @Setter
+    private PowerPlant powerPlant;
 
     public ParkState(Random rng) {
         this.currentStep = 0;
@@ -93,5 +97,65 @@ public class ParkState {
         return vehicles.stream()
                 .filter(v -> v.getStatus() == VehicleStatus.BROKEN || v.getStatus() == VehicleStatus.IN_USE)
                 .count();
+    }
+
+    public int getCurrentStep() {
+        return this.currentStep;
+    }
+
+    public double getTotalRevenue() {
+        return this.totalRevenue;
+    }
+
+    public double getTotalExpenses() {
+        return this.totalExpenses;
+    }
+
+    public List<Tourist> getAllTourists() {
+        return this.allTourists;
+    }
+
+    public List<Dinosaur> getAllDinosaurs() {
+        return this.allDinosaurs;
+    }
+
+    public List<Worker> getAllWorkers() {
+        return this.allWorkers;
+    }
+
+    public List<Vehicle> getVehicles() {
+        return this.vehicles;
+    }
+
+    public List<String> getActiveEventNames() {
+        return this.activeEventNames;
+    }
+
+    public Random getRng() {
+        return this.rng;
+    }
+
+    public boolean isDealsHourActive() {
+        return this.dealsHourActive;
+    }
+
+    public void setDealsHourActive(boolean dealsHourActive) {
+        this.dealsHourActive = dealsHourActive;
+    }
+
+    public double getCurrentDiscount() {
+        return this.currentDiscount;
+    }
+
+    public void setCurrentDiscount(double currentDiscount) {
+        this.currentDiscount = currentDiscount;
+    }
+
+    public PowerPlant getPowerPlant() {
+        return this.powerPlant;
+    }
+
+    public void setPowerPlant(PowerPlant powerPlant) {
+        this.powerPlant = powerPlant;
     }
 }
