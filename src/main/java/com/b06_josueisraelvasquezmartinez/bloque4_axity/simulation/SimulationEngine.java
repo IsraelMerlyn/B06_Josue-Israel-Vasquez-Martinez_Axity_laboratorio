@@ -56,7 +56,8 @@ public class SimulationEngine implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("  Inicializando parámetros operativos y base de datos...");
         initSimulation();
-
+        this.powerPlant = new PowerPlant();
+        this.state.setPowerPlant(this.powerPlant);
         System.out.println(" Iniciando bucle cronológico transaccional...");
 
         for (int step = 0; step < this.totalSteps; step++) {
