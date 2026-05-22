@@ -64,10 +64,10 @@ public class SimulationEngine implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("⚙️ [Engine] Cargando infraestructura transaccional y catálogo de contingencias...");
+        System.out.println(" Cargando infraestructura transaccional y catálogo de contingencias...");
         initSimulation();
 
-        System.out.println("🚀 [Engine] Ejecutando simulación dinámica con persistencia activa...");
+        System.out.println("Ejecutando simulación dinámica con persistencia activa...");
 
         for (int step = 0; step < this.totalSteps; step++) {
             this.state.incrementStep();
@@ -165,7 +165,7 @@ public class SimulationEngine implements CommandLineRunner {
             }
         }
 
-        System.out.println("\n🏁 Simulación finalizada por completo. Registro de auditoría guardado con éxito.");
+        System.out.println("\n Simulación finalizada por completo. Registro de auditoría guardado con éxito.");
     }
 
     private void initSimulation() {
